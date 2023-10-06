@@ -33,8 +33,8 @@ module.exports = {
     const thought = await Thought.create({ thoughtText, username });
 
     // Associate the thought with the user using $addToSet
-    const user = await User.findByIdAndUpdate(
-      req.body.userId,
+    const user = await User.findOneAndUpdate(
+      { username: req.body.username },
       { $addToSet: { thoughts: thought._id } },
       { runValidators: true, new: true }
     );
